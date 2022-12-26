@@ -1,42 +1,32 @@
-#EXERCISE 2
+#EXERCISE 3
 .data
-MSG1:   .asciiz "Enter the first number: "
-MSG2:   .asciiz "Enter the second number: "
-MSG3:   .asciiz "\nThe quotient is: "
-MSG4:   .asciiz "\nThe reminder is: "
+MSG1: .asciiz "Enter in a number greater than zero: "
+HELLO: .asciiz "Hello World!\n"
+ERROR: .asciiz "Number less than 1, re-enter: "
 .text
 .globl main
-
 main: 
-    li $v0, 4 
-    la $a0, MSG1 
+    li $v0, 4
+    la $a0, MSG1
     syscall
 
+test:
     li $v0, 5
     syscall
     move $s1, $v0
+    blez $s1, BADN
 
-    li $v0, 4 
-    la $a0, MSG2 
-    syscall
-
-    li $v0, 5
-    syscall
-    move $s2, $v0
-
-    div $s1, $s2
+TOPL:
     li $v0, 4
-    la $a0, MSG3
+    la $a0, HELLO
     syscall
-    li $v0, 1
-    mflo $a0
-    syscall
+    addiu $s1, $s1, -1
+    bgtz $s1, TOPL
 
-    li $v0, 4
-    la $a0, MSG4
-    syscall
-    li $v0, 1
-    mfhi $a0
-    syscall
-    
     jr $ra
+
+BADN:
+    li $v0, 4
+    la $a0, ERROR
+    syscall
+    j test
