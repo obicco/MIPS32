@@ -8,19 +8,19 @@ MSG3:   .asciiz "\nGood number, it is: "
 .globl main
 
 main:
-    li $v0, 4 #Tell syscall to print ou a string
+    li $v0, 4 #Tell syscall to print you a string
     la $a0, MSG1 #Tell syscall which string to print
     syscall #Print the string
 
 test:
     li $v0, 5 #Tell syscall to read an integer
     syscall #Read the integer
-    move $s1, $v0 #Save the integer read in $s0
+    move $s1, $v0 #Save the integer read in $s1
     bltz $s1, BADN #if less than 0 go to BADN
     li $t1, 100
     bgt $s1, $t1, BADN # If greater than 100 got BADN
 
-    li $v0, 4 #Tell syscall to print ou a string
+    li $v0, 4 #Tell syscall to print you a string
     la $a0, MSG3 #Tell syscall which string to print
     syscall #Print the string
 
@@ -31,7 +31,7 @@ test:
     jr $ra #Stop the program
 
 BADN:
-    li $v0, 4 #Tell syscall to print ou a string
+    li $v0, 4 #Tell syscall to print you a string
     la $a0, MSG2 #Tell syscall which string to print
     syscall #Print the string
     j   test
